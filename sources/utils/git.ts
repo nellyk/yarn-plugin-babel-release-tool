@@ -2,7 +2,7 @@ import { run } from "./node";
 
 // https://github.com/lerna/lerna/blob/master/utils/describe-ref/lib/describe-ref.js
 export async function getLastTag() {
-  const { stdout } = await run(`git describe --long --dirty --first-parent`);
+  const { stdout } = await run(`git describe --tags $(git rev-list --tags --max-count=1)`);
 
   const [, lastTagName, lastVersion, refCount, sha, isDirty] =
     /^((?:.*@)?(.*))-(\d+)-g([0-9a-f]+)(-dirty)?$/.exec(stdout) || [];
